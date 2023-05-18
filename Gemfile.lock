@@ -1,5 +1,6 @@
-PATH
-  remote: ../../../rails/rails-gems/yorchauthapi
+GIT
+  remote: https://github.com/Jorge-Ortiz-Mata/yorchauth-api-gem.git
+  revision: 703e19f3a227603c2b176f945b066f1ecc50d009
   specs:
     yorchauthapi (0.1.0)
       rails (>= 7.0.4.3)
