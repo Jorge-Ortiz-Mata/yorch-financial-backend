@@ -27,10 +27,11 @@ ENTRYPOINT ["entrypoint.sh"]
 
 EXPOSE 3000
 
-# Compile the assets:
-RUN RAILS_ENV=production SECRET_KEY_BASE=10167c7f7654ed02b3557b05b88ece rails assets:precompile
+ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
+
+RUN rails credentials:edit
 
 RUN rails db:setup
 
