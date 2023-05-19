@@ -1,0 +1,15 @@
+name: Staging - CI & CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  testing:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        uses: ./.github/workflow/ci-testing.yml
+

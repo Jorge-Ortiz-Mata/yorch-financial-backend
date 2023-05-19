@@ -1,4 +1,4 @@
-name: Pull Request
+name: Pull Request - CI & CD
 
 on:
   workflow_dispatch:

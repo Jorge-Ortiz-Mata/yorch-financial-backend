@@ -1,0 +1,18 @@
+on:
+  workflow_call:
+
+jobs:
+  testing:
+    name: Staging Testing
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:3.0.4
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install gems
+        run: bundle install
+
+      - name: Run Tests
+        run: rspec spec/
