@@ -30,8 +30,8 @@ EXPOSE 3000
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
-
-RUN rails credentials:edit
+# Test if the rails app loads:
+RUN SECRET_KEY_BASE=10267c3f7614ed02b6557b04b87eca rails secret > /dev/null
 
 RUN rails db:setup
 
