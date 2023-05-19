@@ -7,5 +7,5 @@ on:
 
 jobs:
   testing:
-    name: Testing
+    name: Staging - Testing
     uses: ./.github/workflows/ci-testing.yml

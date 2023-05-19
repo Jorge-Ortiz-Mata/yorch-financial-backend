@@ -3,7 +3,7 @@ on:
 
 jobs:
   testing:
-    name: Staging Testing
+    name: Testing
     runs-on: ubuntu-latest
     container:
       image: ruby:3.0.4
