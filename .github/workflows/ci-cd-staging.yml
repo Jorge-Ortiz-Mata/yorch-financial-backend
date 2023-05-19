@@ -12,4 +12,3 @@ jobs:
     steps:
       - name: Run tests
         uses: ./.github/workflows/ci-testing.yml
-
