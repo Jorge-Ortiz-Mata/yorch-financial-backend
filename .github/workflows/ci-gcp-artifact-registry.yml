@@ -4,7 +4,7 @@ on:
 jobs:
   build-and-push:
     name: Artifact Registry - GCP
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     container:
       image: ruby:3.0.4
     steps:
