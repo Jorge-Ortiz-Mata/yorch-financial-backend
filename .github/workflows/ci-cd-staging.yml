@@ -8,7 +8,4 @@ on:
 jobs:
   testing:
     name: Testing
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run tests
-        uses: ./.github/workflows/ci-testing.yml
+    uses: ./.github/workflows/ci-testing.yml
