@@ -13,3 +13,4 @@ jobs:
   build-and-push:
     name: Staging - Artifact Registry GCP
     uses: ./.github/workflows/ci-gcp-artifact-registry.yml
+    needs: testing
