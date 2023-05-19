@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-Post.create(name: 'First post')
-
-Post.create(name: 'Second post')
-
-Post.create(name: 'Third post')
+if Post.all.empty?
+  Post.create(name: 'First post')
+  Post.create(name: 'Second post')
+  Post.create(name: 'Third post')
+end

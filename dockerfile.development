@@ -1,0 +1,21 @@
+FROM ruby:3.0.4 as development
+
+USER root
+
+# We'll install curl for later dependency package installation steps
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    git \
+    sudo \
+    libpq5 \
+    openssl
+
+WORKDIR /workspaces/yorch-financial-backend
+
+COPY Gemfile .
+
+COPY Gemfile.lock .
+
+RUN bundle install
