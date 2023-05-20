@@ -8,8 +8,8 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-push:
-    name: Artifact Registry - GCP
+  deployment:
+    name: Google Cloud Platform
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -41,4 +41,8 @@ jobs:
         run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest
 
       - name: Deploy service to Cloud Run
-        run: gcloud run deploy yorch-financial-staging --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest
+        run: |
+          gcloud run deploy yorch-financial-staging \
+          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest \
+          --allow-unauthenticated \
+          --region us-central1
