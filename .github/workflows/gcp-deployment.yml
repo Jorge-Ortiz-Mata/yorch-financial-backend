@@ -37,17 +37,8 @@ jobs:
       - name: Build Docker Image
         run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest .
 
-      - name: Push Docker Image
+      - name: Push Docker Image to Artifact Registry
         run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest
 
-      # - name: Build and push
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     push: true
-      #     tags: us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest
-
-      # - name: Set up Docker Buildx
-      #   id: buildx
-      #   uses: docker/setup-buildx-action@v2.2.1
-      #   with:
-      #     version: v0.9.1
+      - name: Deploy service to Cloud Run
+        run: gcloud run deploy yorch-financial-staging --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest
