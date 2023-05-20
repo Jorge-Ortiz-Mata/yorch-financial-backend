@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, except: %i[index new edit]
       resources :posts
+
+      get 'articles/dummy', to: 'articles#dummy_articles'
     end
 
     post '/login', to: 'sessions#login'
