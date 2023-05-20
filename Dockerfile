@@ -32,7 +32,7 @@ ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
 ENV SECRET_KEY_BASE=dummy_secret_key
 # Test if the rails app loads:
-RUN rails db:setup
+RUN rails db:migrate
 
 # Configure the main process to run when running the image
 CMD ["rails", "server", "-b", "0.0.0.0"]
