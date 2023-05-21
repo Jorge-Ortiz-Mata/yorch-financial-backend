@@ -13,7 +13,7 @@ module Api
         token_encoded = Yorchauthapi.encode_jwt(user)
         render json: { auth_token: token_encoded }, status: :ok
       else
-        render json: { errors: ['Email or password are incorrect'] }, status: :unprocessable_entity
+        render json: { errors: ['Email o contraseña incorrectos'] }, status: :unprocessable_entity
       end
     end
 
@@ -28,10 +28,10 @@ module Api
           authentication_token.destroy
           render json: { response: 'Authentication token was successfully deleted' }, status: :ok
         else
-          render json: { errors: ['Authentication token was not found'] }, status: :unprocessable_entity
+          render json: { errors: ['JWT no fué encontrado. Favor de volver a iniciar sesión'] }, status: :unprocessable_entity
         end
       else
-        render json: { errors: ['JWT was not provided'] }, status: :unprocessable_entity
+        render json: { errors: ['JWT no fue añadido'] }, status: :unprocessable_entity
       end
     end
   end

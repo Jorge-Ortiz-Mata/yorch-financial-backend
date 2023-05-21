@@ -34,7 +34,7 @@ module Api
 
       def destroy
         @user.destroy
-        render json: { response: ['Email has been deleted succesfully'] }, status: :ok
+        render json: { response: ['Cuenta de correo ha sido eliminada correctamente'] }, status: :ok
       end
 
       private
