@@ -11,24 +11,14 @@ permissions:
   id-token: write
 
 jobs:
-  # testing:
-  #   name: Pull Request - Testing
-  #   uses: ./.github/workflows/ci-testing.yml
+  testing:
+    name: Pull Request - Testing
+    uses: ./.github/workflows/ci-testing.yml
 
-  display-pr-info:
-    name: Display Info
-    runs-on: ubuntu-latest
-    steps:
-      - name: Display information
-        run: echo "${{ github.event }}"
-
-      - name: Display number
-        run: echo "${{ github.event.number }}"
-
-  # gcp-deployment:
-  #   name: Pull Request - Google Cloud Platform
-  #   uses: ./.github/workflows/gcp-deployment.yml
-  #   with:
-  #     environment: pull-request
-  #     pr-number: ${{ github.event.number }}
-  #   needs: testing
+  gcp-deployment:
+    name: Pull Request - Google Cloud Platform
+    uses: ./.github/workflows/gcp-deployment.yml
+    with:
+      environment: pull-request
+      pr-number: ${{ github.event.number }}
+    needs: testing
