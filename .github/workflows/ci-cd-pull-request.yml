@@ -4,10 +4,31 @@ on:
   workflow_dispatch:
   pull_request:
 
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  testing:
-    name: Testing
+  # testing:
+  #   name: Pull Request - Testing
+  #   uses: ./.github/workflows/ci-testing.yml
+
+  display-pr-info:
+    name: Display Info
     runs-on: ubuntu-latest
     steps:
-      - name: Say Hi.
-        run: echo "Hello World"
+      - name: Display information
+        run: echo "${{ github.event }}"
+
+      - name: Display number
+        run: echo "${{ github.event.number }}"
+
+  # gcp-deployment:
+  #   name: Pull Request - Google Cloud Platform
+  #   uses: ./.github/workflows/gcp-deployment.yml
+  #   with:
+  #     environment: pull-request
+  #     pr-number: ${{ github.event.number }}
+  #   needs: testing

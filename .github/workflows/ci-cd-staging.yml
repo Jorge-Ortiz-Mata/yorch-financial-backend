@@ -16,7 +16,9 @@ jobs:
     name: Staging - Testing
     uses: ./.github/workflows/ci-testing.yml
 
-  build-and-push:
-    name: Staging - Artifact Registry GCP
+  gcp-deployment:
+    name: Staging - Google Cloud Platform
     uses: ./.github/workflows/gcp-deployment.yml
+    with:
+      environment: staging
     needs: testing

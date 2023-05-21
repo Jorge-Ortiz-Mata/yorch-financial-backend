@@ -1,5 +1,11 @@
 on:
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+      pr-number:
+        type: string
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -8,8 +14,50 @@ permissions:
   id-token: write
 
 jobs:
-  deployment:
-    name: Google Cloud Platform
+  gcp-pull-request:
+    if: ${{ inputs.environment == 'pull-request' }}
+    name: GCP - Pull Request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2.2.1
+        with:
+          version: v0.9.1
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          workload_identity_provider: projects/787448687190/locations/global/workloadIdentityPools/yorch-financial-pool/providers/github
+          service_account: github-actions-runner@yorch-financial.iam.gserviceaccount.com
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1.0.0
+
+      - name: Authorize push to Google Cloud Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build Docker Image
+        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-pr-${{ inputs.pr-number }}:latest .
+
+      - name: Push Docker Image to Artifact Registry
+        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-pr-${{ inputs.pr-number }}:latest
+
+      - name: Deploy service to Cloud Run
+        run: |
+          gcloud run deploy yorch-financial-pr-${{ inputs.pr-number }} \
+          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-pr-${{ inputs.pr-number }}:latest \
+          --allow-unauthenticated \
+          --port 3000 \
+          --region us-central1
+
+  gcp-staging:
+    if: ${{ inputs.environment == 'staging' }}
+    name: GCP - Staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -44,6 +92,47 @@ jobs:
         run: |
           gcloud run deploy yorch-financial-staging \
           --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest \
+          --allow-unauthenticated \
+          --port 3000 \
+          --region us-central1
+
+  gcp-production:
+    if: ${{ inputs.environment == 'production' }}
+    name: GCP - Production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2.2.1
+        with:
+          version: v0.9.1
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v0.4.0
+        with:
+          workload_identity_provider: projects/787448687190/locations/global/workloadIdentityPools/yorch-financial-pool/providers/github
+          service_account: github-actions-runner@yorch-financial.iam.gserviceaccount.com
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1.0.0
+
+      - name: Authorize push to Google Cloud Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      - name: Build Docker Image
+        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-production:latest .
+
+      - name: Push Docker Image to Artifact Registry
+        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-production:latest
+
+      - name: Deploy service to Cloud Run
+        run: |
+          gcloud run deploy yorch-financial-production \
+          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-production:latest \
           --allow-unauthenticated \
           --port 3000 \
           --region us-central1
