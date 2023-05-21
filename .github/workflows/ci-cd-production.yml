@@ -1,10 +1,9 @@
-name: Staging - CI & CD
+name: Production - CI & CD
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -14,12 +13,12 @@ permissions:
 
 jobs:
   testing:
-    name: Staging - Testing
+    name: Production - Testing
     uses: ./.github/workflows/ci-testing.yml
 
   gcp-deployment:
-    name: Staging - Google Cloud Platform
+    name: Production - Google Cloud Platform
     uses: ./.github/workflows/gcp-deployment.yml
     with:
-      environment: staging
+      environment: production
     needs: testing
