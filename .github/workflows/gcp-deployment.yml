@@ -42,15 +42,15 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker Image
-        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-pr-${{ inputs.pr-number }}:latest .
+        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:pr-${{ inputs.pr-number }} .
 
       - name: Push Docker Image to Artifact Registry
-        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-pr-${{ inputs.pr-number }}:latest
+        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:pr-${{ inputs.pr-number }}
 
       - name: Deploy service to Cloud Run
         run: |
           gcloud run deploy yorch-financial-pr-${{ inputs.pr-number }} \
-          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-pr-${{ inputs.pr-number }}:latest \
+          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:pr-${{ inputs.pr-number }} \
           --allow-unauthenticated \
           --port 3000 \
           --region us-central1
@@ -83,15 +83,15 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker Image
-        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest .
+        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:staging .
 
       - name: Push Docker Image to Artifact Registry
-        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest
+        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:staging
 
       - name: Deploy service to Cloud Run
         run: |
           gcloud run deploy yorch-financial-staging \
-          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-staging:latest \
+          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:staging \
           --allow-unauthenticated \
           --port 3000 \
           --region us-central1
@@ -124,15 +124,15 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       - name: Build Docker Image
-        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-production:latest .
+        run: docker build -t us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:production .
 
       - name: Push Docker Image to Artifact Registry
-        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-production:latest
+        run: docker push us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:production
 
       - name: Deploy service to Cloud Run
         run: |
           gcloud run deploy yorch-financial-production \
-          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial-production:latest \
+          --image us-central1-docker.pkg.dev/yorch-financial/yorch-financial/yorch-financial:production \
           --allow-unauthenticated \
           --port 3000 \
           --region us-central1
