@@ -9,6 +9,10 @@ module Api
     def authenticate_user
       jwt_token = request.headers['HTTP_AUTHORIZATION']
 
+      puts "==="
+      puts jwt_token
+      puts "==="
+
       if jwt_token.present?
         decoded_token = Yorchauthapi.decode_jwt(jwt_token)
         authentication_token = AuthenticationToken.find_by(auth_token: decoded_token['auth_token'])
