@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      resources :profiles, only: %i[show create update]
       resources :users, except: %i[index new edit]
       resources :posts
 

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Jorge-Ortiz-Mata/yorchauth-api-gem.git
-  revision: 703e19f3a227603c2b176f945b066f1ecc50d009
+  revision: 93a3e35ca683688ae9e62da5e3c3b3cd67404bba
   specs:
     yorchauthapi (0.1.0)
       rails (>= 7.0.4.3)
@@ -88,6 +88,7 @@ GEM
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    hirb (0.7.3)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -199,6 +200,7 @@ DEPENDENCIES
   bcrypt
   bootsnap
   debug
+  hirb
   image_processing (~> 1.2)
   jbuilder
   jwt
