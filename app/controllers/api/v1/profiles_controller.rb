@@ -4,7 +4,9 @@ module Api
       before_action :authenticate_user
       before_action :set_profile, only: %i[show update upload_avatar]
 
-      def show; end
+      def show
+        @host = request.host
+      end
 
       def create
         @profile = @user.build_profile profile_params
