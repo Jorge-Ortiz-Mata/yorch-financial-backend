@@ -2,7 +2,7 @@ module Api
   module V1
     class ProfilesController < AuthenticatedController
       before_action :authenticate_user
-      before_action :set_profile, only: %i[show update]
+      before_action :set_profile, only: %i[show update upload_avatar]
 
       def show; end
 
@@ -17,11 +17,18 @@ module Api
       end
 
       def update
-        debugger
         if @profile.update(profile_params)
           render json: { profile: @profile }, status: :ok
         else
           render json: { errors: [@profile.errors] }, status: :unprocessable_entity
+        end
+      end
+
+      def upload_avatar
+        if @profile.avatar.attach(params[:avatar])
+          render json: { avatar: url_for(@profile.avatar) }, status: :ok
+        else
+          render json: { errors: 'Something occurred' }, status: :unprocessable_entity
         end
       end
 
@@ -32,7 +39,9 @@ module Api
       end
 
       def profile_params
-        params.require(:profile).permit(:name, :paternal_name, :maternal_name, :sex, :date_of_birth, :job_title, :summary)
+        params.require(:profile).permit(
+          :name, :paternal_name, :maternal_name, :sex, :date_of_birth, :job_title, :summary
+        )
       end
     end
   end

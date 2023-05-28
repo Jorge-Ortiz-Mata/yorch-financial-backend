@@ -23,6 +23,8 @@ class User < ApplicationRecord
   end
 
   def set_profile
-    Profile.create!(user: self)
+    profile = Profile.create(user: self)
+
+    Profile.find(profile.id).update!(name: email)
   end
 end

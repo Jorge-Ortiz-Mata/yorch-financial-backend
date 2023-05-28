@@ -1,15 +1,16 @@
 class Profile < ApplicationRecord
+  has_one_attached :avatar
   belongs_to :user, dependent: :destroy
 
-  validate :sex_format, on: :update
+  # validate :sex_format, on: :update
 
-  SEX_OPTIONS = %w[MASCULINO FEMENINO].freeze
+  # SEX_OPTIONS = %w[MALE FEMALE].freeze
 
-  private
+  # private
 
-  def sex_format
-    return if SEX_OPTIONS.include?(sex)
+  # def sex_format
+  #   return if SEX_OPTIONS.include?(sex)
 
-    errors.add(:sex, 'tiene que ser formato válido (MASCULINO, FEMENINO)')
-  end
+  #   errors.add(:sex, 'tiene que ser formato válido (MASCULINO, FEMENINO)')
+  # end
 end
