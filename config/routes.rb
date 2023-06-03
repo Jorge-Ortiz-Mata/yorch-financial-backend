@@ -2,6 +2,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      # REVENUES routes.
+      resources :revenues, only: %i[create update destroy] do
+        collection do
+          get '/user', to: 'revenues#user_revenues'
+        end
+      end
 
       # PROFILES routes.
       resources :profiles, only: %i[show create update] do
