@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_one :authentication_token, dependent: :destroy
   has_one :profile, dependent: :destroy
   has_many :revenues
+  has_many :expenses
 
   validates :email, presence: true
   validates :email, uniqueness: { message: 'Email ya ha sido registrado' }
