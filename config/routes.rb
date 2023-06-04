@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :revenues, only: %i[create update destroy] do
         collection do
           get '/user', to: 'revenues#user_revenues'
+          get '/total', to: 'revenues#total_revenues'
         end
       end
 
