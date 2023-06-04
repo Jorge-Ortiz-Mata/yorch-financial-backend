@@ -6,8 +6,6 @@ module Api
 
       def user_revenues; end
 
-      def total_revenues; end
-
       def create
         @revenue = @user.revenues.new revenue_params
 

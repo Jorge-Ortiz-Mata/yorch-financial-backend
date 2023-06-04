@@ -7,6 +7,8 @@ module Api
       def user_expenses; end
 
       def create
+        @expense = @user.expenses.new expense_params
+
         debugger
       end
 
