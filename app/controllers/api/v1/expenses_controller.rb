@@ -9,7 +9,11 @@ module Api
       def create
         @expense = @user.expenses.new expense_params
 
-        debugger
+        if @expense.save
+          render json: { expense: @expense }, status: :ok
+        else
+          render json: { errors: @expense.errors }, status: :unprocessable_entity
+        end
       end
 
       def destroy
