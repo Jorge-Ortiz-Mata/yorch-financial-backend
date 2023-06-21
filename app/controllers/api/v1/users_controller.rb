@@ -7,9 +7,7 @@ module Api
       before_action :user_permissions, only: %i[show update destroy]
       before_action :set_user, except: %i[create]
 
-      def show
-        render json: { id: @user.id, email: @user.email }, status: :ok
-      end
+      def show; end
 
       def create
         @user = User.new user_params
