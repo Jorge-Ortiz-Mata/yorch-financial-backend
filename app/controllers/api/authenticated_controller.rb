@@ -14,9 +14,9 @@ module Api
         authentication_token = AuthenticationToken.find_by(auth_token: @decoded_token['auth_token'])
         @user = User.find_by(email: @decoded_token['email'])
 
-        render json: { errors: ['JWT expired'] }, status: :unauthorized unless authentication_token.present?
+        render json: { errors: ['JWT expiró'] }, status: :unauthorized unless authentication_token.present?
       else
-        render json: { errors: ['JWT was not provided'] }, status: :unauthorized
+        render json: { errors: ['JWT no fue añadido'] }, status: :unauthorized
       end
     end
 
@@ -27,7 +27,7 @@ module Api
 
       return if authentication_token.user_id == params[:id].to_i
 
-      render json: { errors: ['You are not allowed to perform this action'] }, status: :unauthorized
+      render json: { errors: ['Este usuario no tiene permisos para editar este registro'] }, status: :unauthorized
     end
   end
 end

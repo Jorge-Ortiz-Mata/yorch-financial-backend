@@ -1,0 +1,14 @@
+name: GCP - Clean Up Environment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+
+jobs:
+  gcp-cleanup:
+    name: Delete environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say something
+        run: echo "Hello World"

@@ -5,8 +5,8 @@ class User < ApplicationRecord
   has_many :revenues
   has_many :expenses
 
-  validates :email, presence: true
-  validates :email, uniqueness: { message: 'Email ya ha sido registrado' }
+  validates :email, presence: { message:  'El campo email no debe estar en blanco' }
+  validates :email, uniqueness: { message:  'Este email ya ha sido tomado' }
 
   validates :password, presence: true, on: :create
   validates :password, length: { minimum: 6 }, on: :create
@@ -21,7 +21,7 @@ class User < ApplicationRecord
   private
 
   def email_format
-    errors.add(:email, "should be a valid email") unless email.to_s.include? '@'
+    errors.add(:email, "debe ser un email válido") unless email.to_s.include? '@'
   end
 
   def set_profile
