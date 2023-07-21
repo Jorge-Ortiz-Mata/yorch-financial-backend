@@ -50,8 +50,6 @@ group :development, :test do
 
   gem 'rspec-rails', '~> 6.0.0'
 
-  gem 'hirb'
-
   gem 'dotenv-rails'
 end
 
